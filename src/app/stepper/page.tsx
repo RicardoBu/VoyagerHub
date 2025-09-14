@@ -20,12 +20,13 @@ import { TransportationProvider } from "@/components/Transportation/Context";
 import i18n from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { useCurrency } from "@/components/Currency/Context";
+import { AllProvider } from "@/components/Trip/AllContext";
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
-  const currency = useCurrency();
+  // const currency = useCurrency();
 
   const router = useRouter();
 
@@ -87,77 +88,65 @@ export default function HorizontalLinearStepper() {
 
   return (
     <>
-      <TripsProvider>
-        <QuantityProvider>
-          <TransportationProvider>
-            <Box sx={{ width: "100%" }}>
+      <AllProvider>
+        <Box sx={{ width: "100%" }}>
+          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+          <Stepper activeStep={activeStep}>
+            {steps.map((step: any, index: number) => {
+              const stepProps: { completed?: boolean } = {};
+              const labelProps: any = {};
+              if (isStepOptional(index)) {
+                labelProps.optional = (
+                  <Typography variant="caption">Optional</Typography>
+                );
+              }
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step key={step.label} {...stepProps}>
+                  <StepLabel {...labelProps}>{step.label}</StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
+          {/* renders the component property of the steps array */}
+          {steps[activeStep]?.component}
+          {activeStep === steps.length ? (
+            <React.Fragment>
               <Typography sx={{ mt: 2, mb: 1 }}>
-                Step {activeStep + 1}
+                {t("All steps completed - you are finished")}
               </Typography>
-              <Stepper activeStep={activeStep}>
-                {steps.map((step: any, index: number) => {
-                  const stepProps: { completed?: boolean } = {};
-                  const labelProps: any = {};
-                  if (isStepOptional(index)) {
-                    labelProps.optional = (
-                      <Typography variant="caption">Optional</Typography>
-                    );
-                  }
-                  if (isStepSkipped(index)) {
-                    stepProps.completed = false;
-                  }
-                  return (
-                    <Step key={step.label} {...stepProps}>
-                      <StepLabel {...labelProps}>{step.label}</StepLabel>
-                    </Step>
-                  );
-                })}
-              </Stepper>
-              {/* renders the component property of the steps array */}
-              {steps[activeStep]?.component}
-              {activeStep === steps.length ? (
-                <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>
-                    {t("All steps completed - you are finished")}
-                  </Typography>
-                  <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                    <Box sx={{ flex: "1 1 auto" }} />
-                    <Button onClick={handleReset}>{t("Reset")}</Button>
-                  </Box>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                    <Button
-                      color="inherit"
-                      disabled={activeStep === 0}
-                      onClick={handleBack}
-                      sx={{ mr: 1 }}
-                    >
-                      {t("Back")}
-                    </Button>
-                    <Box sx={{ flex: "1 1 auto" }} />
-                    {isStepOptional(activeStep) && (
-                      <Button
-                        color="inherit"
-                        onClick={handleSkip}
-                        sx={{ mr: 1 }}
-                      >
-                        {t("Skip")}
-                      </Button>
-                    )}
-                    <Button onClick={handleNext}>
-                      {activeStep === steps.length - 1
-                        ? t("Finish")
-                        : t("Next")}
-                    </Button>
-                  </Box>
-                </React.Fragment>
-              )}
-            </Box>
-          </TransportationProvider>
-        </QuantityProvider>
-      </TripsProvider>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Box sx={{ flex: "1 1 auto" }} />
+                <Button onClick={handleReset}>{t("Reset")}</Button>
+              </Box>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+                <Button
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  {t("Back")}
+                </Button>
+                <Box sx={{ flex: "1 1 auto" }} />
+                {isStepOptional(activeStep) && (
+                  <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                    {t("Skip")}
+                  </Button>
+                )}
+                <Button onClick={handleNext}>
+                  {activeStep === steps.length - 1 ? t("Finish") : t("Next")}
+                </Button>
+              </Box>
+            </React.Fragment>
+          )}
+        </Box>
+      </AllProvider>
     </>
   );
 }

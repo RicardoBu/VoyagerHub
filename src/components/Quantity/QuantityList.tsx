@@ -1,17 +1,6 @@
 import { useRouter } from "next/navigation";
 import React from "react";
-
-type Quantity = {
-  id?: number;
-  prQuantity?: number;
-  bbQuantity?: number;
-  petsQuantity?: number;
-};
-
-type QuantityListProps = {
-  quantities: Quantity[];
-  onRemove?: (quantityId: number | undefined) => void;
-};
+import { Quantity, QuantityListProps } from "@/types/quantity";
 
 const QuantityList = ({ quantities, onRemove }: QuantityListProps) => {
   const router = useRouter();

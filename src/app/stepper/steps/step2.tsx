@@ -1,19 +1,16 @@
 import { QuantityProvider, useQuantities } from "@/components/Quantity/Context";
 import QuantityForm from "@/components/Quantity/QuantityForm";
 import QuantityList from "@/components/Quantity/QuantityList";
+import { useAll } from "@/components/Trip/AllContext";
+import { Quantity } from "@/types/quantity";
 
 import React, { useState } from "react";
 
-type Quantity = {
-  id?: number;
-  prQuantity?: number;
-  bbQuantity?: number;
-  petsQuantity?: number;
-};
-
 export default function Step2() {
-  const { quantities, setQuantities } = useQuantities();
+  const { quantities, setQuantities } = useAll();
+
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  console.log(quantities);
 
   // Select the first quantity or create a default empty quantity object
   const quantity =
@@ -27,7 +24,7 @@ export default function Step2() {
     );
   };
 
-  const addQuantities = (quantity: Omit<Quantity, "id">) => {
+  const addQuantities = (quantity: Quantity) => {
     const newQuantity = { ...quantity, id: Math.random() };
     console.log(newQuantity);
     setQuantities((prevQuantities) => [...prevQuantities, newQuantity]);

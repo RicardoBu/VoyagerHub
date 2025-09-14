@@ -1,19 +1,9 @@
 import { useRouter } from "next/navigation";
 import { useCurrency } from "../Currency/Context";
 
-type Trip = {
-  id: number;
-  destination: string;
-  description: string;
-  date: string;
-  price?: number;
-};
+import { Trip } from "@/types/trips";
 
-type TripListProps = {
-  trips: Trip[];
-  currency: string;
-  onRemove?: (tripId: number) => void;
-};
+import { TripListProps } from "@/types/trips";
 
 export default function TripList({ trips, onRemove }: TripListProps) {
   const router = useRouter();
@@ -26,6 +16,8 @@ export default function TripList({ trips, onRemove }: TripListProps) {
   const handleDelete = async (tripId: number) => {
     onRemove?.(tripId);
   };
+
+  console.log(trips);
 
   return (
     <div>

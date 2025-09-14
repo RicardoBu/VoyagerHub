@@ -1,8 +1,8 @@
 import TripForm from "@/components/Trip/TripForm";
 import TripList from "@/components/Trip/TripList";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { TripsProvider, useTrips } from "@/components/Trip/Context";
+
+import { useAll } from "@/components/Trip/AllContext";
 
 type Trip = {
   id: number;
@@ -12,8 +12,9 @@ type Trip = {
 };
 
 export default function Step1() {
-  // const [trips, setTrips] = useState<Trip[]>([]);
-  const { trips, setTrips } = useTrips();
+  const { trips, setTrips } = useAll();
+  console.log(trips);
+
   const deleteTrip = (tripId: number) => {
     // usar o state de trips (setTrips) e fazendo um filtro para excluir o tripId
     setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
@@ -23,11 +24,6 @@ export default function Step1() {
     const newTrip = { ...trip, id: Date.now() };
     setTrips((prevTrips) => [...prevTrips, newTrip]);
   };
-  // const fetchTrip = () => {
-  //   axios
-  //     .get<Trip[]>("http://localhost:8080/trips")
-  //     .then((response) => setTrips(response.data));
-  // };
 
   return (
     <>

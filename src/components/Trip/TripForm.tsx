@@ -2,20 +2,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
-type TripData = {
-  id?: number;
-  destination: string;
-  description: string;
-  date: string;
-  filteredSuggestions: { id: number; destination: string; price: number }[];
-  price: number;
-};
+import { TripData } from "@/types/trips";
 
-type TripFormProps = {
-  trip?: TripData; // Trip a editar (opcional)
-  onAdd?: (trip: Omit<TripData, "id">) => void; // usada ao criar nova
-  onSubmit?: (trip: Omit<TripData, "id"> & { id: number }) => void; // usada ao editar existente
-};
+import { TripFormProps } from "@/types/trips";
 
 export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
   const [tripData, setTripData] = useState<TripData>({

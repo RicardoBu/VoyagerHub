@@ -71,9 +71,6 @@ export const AllProvider = ({ children }: { children: ReactNode }) => {
     savedQuantities ? JSON.parse(savedQuantities) : []
   );
 
-  // currency
-  const [currency, setCurrency] = useState("USD");
-
   // salvar em localStorage
   useEffect(() => {
     localStorage.setItem("trips", JSON.stringify(trips));

@@ -84,12 +84,16 @@ export default function Step4() {
     );
   };
 
+  console.log(trips);
+  console.log(quantities);
+  console.log(transportation);
+
   return (
     <>
       <div>
         <h2>Review Your Selections</h2>
 
-        <TripList trips={trips} currency={currency} onRemove={handleDelete} />
+        <TripList trips={trips} onRemove={handleDelete} />
 
         <QuantityList quantities={quantities} onRemove={deleteQuantities} />
         <TransportationList

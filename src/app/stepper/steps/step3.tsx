@@ -4,6 +4,7 @@ import {
 } from "@/components/Transportation/Context";
 import TransportationForm from "@/components/Transportation/TransportationForm";
 import TransportationList from "@/components/Transportation/TransportationList";
+import { useAll } from "@/components/Trip/AllContext";
 
 import React, { useState } from "react";
 
@@ -15,7 +16,8 @@ type Transportation = {
 };
 
 export default function Step3() {
-  const { transportation, setTransportation } = useTransportation();
+  const { transportation, setTransportation } = useAll();
+
   const deleteTransportation = (transportationId: number) => {
     setTransportation((prevTransportation) =>
       prevTransportation.filter(

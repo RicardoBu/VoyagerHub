@@ -1,19 +1,8 @@
 import React, { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-
-type Quantity = {
-  id?: number;
-  prQuantity?: number | string;
-  bbQuantity?: number | string;
-  petsQuantity?: number | string;
-};
-
-type QuantityFormProps = {
-  quantity: Quantity;
-  onAdd: (quantity: Quantity) => void;
-  onSubmit: (quantity: Quantity) => void;
-};
+import { Quantity } from "@/types/quantity";
+import { QuantityFormProps } from "@/types/quantity";
 
 const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
   const [quantities, setQuantities] = React.useState<Quantity>({

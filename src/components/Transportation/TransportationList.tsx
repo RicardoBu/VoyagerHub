@@ -2,19 +2,9 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useCurrency } from "../Currency/Context";
 
-type Transportation = {
-  id?: number;
-  flight: string;
-  bus: string;
-  train: string;
-  price?: number;
-};
+import { Transportation } from "../../types/transportation";
 
-type TransportationListProps = {
-  transportation: Transportation[];
-  // currency: string;
-  onRemove?: (transportationId: number) => void;
-};
+import { TransportationListProps } from "../../types/transportation";
 
 export default function TransportationList({
   transportation,
