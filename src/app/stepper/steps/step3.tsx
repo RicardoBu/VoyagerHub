@@ -8,12 +8,7 @@ import { useAll } from "@/components/Trip/AllContext";
 
 import React, { useState } from "react";
 
-type Transportation = {
-  id?: number;
-  flight: string;
-  bus: string;
-  train: string;
-};
+import { Transportation } from "@/types/transportation";
 
 export default function Step3() {
   const { transportation, setTransportation } = useAll();

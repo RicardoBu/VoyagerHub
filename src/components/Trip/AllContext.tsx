@@ -6,27 +6,11 @@ import React, {
   useEffect,
 } from "react";
 
-type Trip = {
-  id: number;
-  destination: string;
-  description: string;
-  date: string;
-  price?: number;
-};
+import { Trip } from "@/types/trips";
 
-type Transportation = {
-  id?: number;
-  flight: string;
-  bus: string;
-  train: string;
-};
+import { Transportation } from "@/types/transportation";
 
-type Quantity = {
-  id?: number;
-  prQuantity?: number;
-  bbQuantity?: number;
-  petsQuantity?: number;
-};
+import { Quantity } from "@/types/quantity";
 
 type AllContextType = {
   trips: Trip[];

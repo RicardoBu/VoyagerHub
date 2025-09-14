@@ -9,24 +9,9 @@ import axios from "axios";
 import { useCurrency } from "@/components/Currency/Context";
 import { useAll } from "@/components/Trip/AllContext";
 
-type Trip = {
-  id: number;
-  destination: string;
-  description: string;
-  date: string;
-  prQuantity: number;
-  bbQuantity: number;
-  petsQuantity: number;
-  flight: string;
-  bus: string;
-  train: string;
-  price?: number;
-};
+import { Trip } from "@/types/trips";
 
 export default function Step4() {
-  // const { quantities, setQuantities } = useQuantities();
-  // const { transportation, setTransportation } = useTransportation();
-  // const { trips, setTrips } = useTrips();
   const {
     trips,
     setTrips,
