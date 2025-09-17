@@ -27,7 +27,7 @@ export default function Home() {
 
       <main className="content">
         <div className="header">
-          <h1>{t("Trips Project")}</h1>
+          <h1>{t("VoyagerHub")}</h1>
           <button className="btn btn--ghost" onClick={login}>
             {t("Login")}
           </button>

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Quantity } from "@/types/quantity";
 import { QuantityFormProps } from "@/types/quantity";
+import { useTranslation } from "react-i18next";
 
 const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
   const [quantities, setQuantities] = React.useState<Quantity>({
@@ -31,16 +32,18 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
   const home = () => {
     router?.push(`/`);
   };
+  const { t, i18n } = useTranslation();
 
   return (
     <>
       <div>
-        <h2>Quantity</h2>
+        <h2>{t("Quantities")}</h2>
         <p>
           <input
             type="number"
             placeholder="Number of people"
             value={quantities.prQuantity}
+            required
             onChange={(e) => {
               setQuantities({
                 ...quantities,
@@ -55,6 +58,7 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
             type="number"
             placeholder="Number of babies"
             value={quantities.bbQuantity}
+            required
             onChange={(e) => {
               setQuantities({
                 ...quantities,
@@ -68,6 +72,7 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
             type="number"
             placeholder="Number of pets"
             value={quantities.petsQuantity}
+            required
             onChange={(e) => {
               setQuantities({
                 ...quantities,

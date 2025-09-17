@@ -1,14 +1,13 @@
 export type TripData = {
   id?: number;
   destination: string;
-  description: string;
   date: string;
   filteredSuggestions: { id: number; destination: string; price: number }[];
   price: number;
 };
 
 export type TripFormProps = {
-  trip?: TripData; // Trip a editar (opcional)
+  trip?: Trip; // Trip a editar (opcional)
   onAdd?: (trip: Omit<TripData, "id">) => void; // usada ao criar nova
   onSubmit?: (trip: Omit<TripData, "id"> & { id: number }) => void; // usada ao editar existente
 };
@@ -16,10 +15,12 @@ export type TripFormProps = {
 export type Trip = {
   id: number;
   destination: string;
-  description: string;
+  
   date: string;
-  price?: number;
+  price: number;
 };
+
+
 
 export type TripListProps = {
   trips: Trip[];

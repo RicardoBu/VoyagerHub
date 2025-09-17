@@ -9,7 +9,6 @@ import { TripFormProps } from "@/types/trips";
 export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
   const [tripData, setTripData] = useState<TripData>({
     destination: "",
-    description: "",
     date: "",
     filteredSuggestions: [],
     price: 0,
@@ -61,7 +60,7 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
 
   useEffect(() => {
     if (trip) {
-      const { destination, description, date, price } = trip;
+      const { destination, date, price } = trip;
       setTripData({ ...trip, filteredSuggestions: [] });
     }
   }, [trip]);
@@ -90,6 +89,7 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
             value={tripData.destination}
             onChange={handleDestinationChange} // handleDestinationChange has the purpose of filtering results comparing the userinput wuth suggestedDestinations
             placeholder={t("Destination")}
+            required
           />
           {tripData.filteredSuggestions.length > 0 && (
             <ul
@@ -123,20 +123,13 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
             </ul>
           )}
         </p>
-        <p>
-          <input
-            value={tripData.description}
-            onChange={(e) =>
-              setTripData({ ...tripData, description: e.target.value })
-            }
-            placeholder={t("Description")}
-          />
-        </p>
+
         <p>
           <input
             type="date"
             value={tripData.date}
             onChange={(e) => setTripData({ ...tripData, date: e.target.value })}
+            required
           />
         </p>
       </div>

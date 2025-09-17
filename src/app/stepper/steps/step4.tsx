@@ -1,8 +1,7 @@
-import { useQuantities } from "@/components/Quantity/Context";
 import QuantityList from "@/components/Quantity/QuantityList";
-import { useTransportation } from "@/components/Transportation/Context";
+
 import TransportationList from "@/components/Transportation/TransportationList";
-import { useTrips } from "@/components/Trip/Context";
+
 import TripList from "@/components/Trip/TripList";
 import React, { useState } from "react";
 import axios from "axios";
@@ -21,14 +20,13 @@ export default function Step4() {
     setQuantities,
   } = useAll();
   const [saveTrip, setSaveTrip] = useState<any[]>([]);
-
+  5;
   const currency = useCurrency();
 
   const handleClick = async () => {
     const tripsWithAllData: Trip[] = (trips as Trip[]).map((t, i) => ({
       id: t.id,
       destination: t.destination, // I didn't understand quite well
-      description: t.description,
       date: t.date,
       prQuantity: quantities[i]?.prQuantity ?? 0,
       bbQuantity: quantities[i]?.bbQuantity ?? 0,
@@ -68,10 +66,6 @@ export default function Step4() {
       )
     );
   };
-
-  console.log(trips);
-  console.log(quantities);
-  console.log(transportation);
 
   return (
     <>

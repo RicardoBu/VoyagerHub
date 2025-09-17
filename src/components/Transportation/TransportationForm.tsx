@@ -123,6 +123,7 @@ export default function TransportationForm({
             type="text"
             placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
             value={transportations?.[field]}
+            required
             onChange={handleChange}
           />
           {transportations?.activeField === field &&

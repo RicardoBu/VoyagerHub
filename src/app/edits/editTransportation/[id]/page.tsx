@@ -3,39 +3,28 @@
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-import {
-  TransportationProvider,
-  useTransportation,
-} from "@/components/Transportation/Context";
 import TransportationForm from "@/components/Transportation/TransportationForm";
-
-type Transportation = {
-  id?: number;
-  flight: string;
-  bus: string;
-  train: string;
-};
+import { AllProvider, useAll } from "@/components/Trip/AllContext";
+import { Transportation } from "@/types/transportation";
 
 export default function EditTransportationPage() {
   return (
-    <TransportationProvider>
+    <AllProvider>
       <EditTransportation />
-    </TransportationProvider>
+    </AllProvider>
   );
 }
 
 function EditTransportation() {
   const { id } = useParams(); // dynamic id from route
-  const { transportation, setTransportation } = useTransportation();
+
+  const { transportation, setTransportation } = useAll();
   const router = useRouter();
 
   // Find the quantity to edit by id (id from params is string, convert to number)
   const transportationToEdit = transportation.find(
     (transportation) => transportation.id === Number(id)
   );
-  console.log(id, "id");
-  console.log(transportation, "transportation");
-  console.log(transportationToEdit, "transportationToEdit");
 
   // Handler to update the trip in context state
   const handleUpdate = (updatedTransportation: Transportation) => {

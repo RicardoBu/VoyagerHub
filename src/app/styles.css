@@ -34,7 +34,7 @@ body.dark {
 
 /* ========= Sidebar ========= */
 .sidebar {
-  width: 240px;
+  
   padding: 1.25rem;
   background: var(--card);
   box-shadow: var(--shadow);

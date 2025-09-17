@@ -1,9 +1,11 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Quantity, QuantityListProps } from "@/types/quantity";
+import { useTranslation } from "react-i18next";
 
 const QuantityList = ({ quantities, onRemove }: QuantityListProps) => {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
 
   const handleEdit = (quantityId: number | undefined) => {
     router?.push(`/edits/editQuantity/${quantityId}`);
@@ -15,17 +17,17 @@ const QuantityList = ({ quantities, onRemove }: QuantityListProps) => {
   };
   return (
     <div>
-      <h2>Quantities</h2>
+      <h2>{t("Quantities")}</h2>
       <ul>
         {quantities.map((quantity) => (
           <li key={quantity.id}>
-            {quantity.prQuantity} Person(s) - {quantity.bbQuantity} Babies -{" "}
-            {quantity.petsQuantity} Pets
+            {quantity.prQuantity} {t("Person")} (s) - {quantity.bbQuantity}{" "}
+            {t("Babies")} - {quantity.petsQuantity} {t("Pets")}
             <button onClick={() => handleEdit(quantity.id)}>
-              ✏️ Edit Quantity
+              ✏️ {t("Edit Quantity")}
             </button>
             <button onClick={() => handleDelete(quantity.id)}>
-              X Delete Quantity
+              X {t("Delete Quantity")}
             </button>
           </li>
         ))}

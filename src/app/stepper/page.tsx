@@ -14,9 +14,7 @@ import Step3 from "./steps/step3";
 import Step4 from "./steps/step4";
 
 import { useRouter } from "next/navigation";
-import { TripsProvider } from "@/components/Trip/Context";
-import { QuantityProvider } from "@/components/Quantity/Context";
-import { TransportationProvider } from "@/components/Transportation/Context";
+
 import i18n from "@/i18n";
 import { useTranslation } from "react-i18next";
 import { useCurrency } from "@/components/Currency/Context";
@@ -30,9 +28,9 @@ export default function HorizontalLinearStepper() {
 
   const router = useRouter();
 
-  const isStepOptional = (step: any) => {
-    return step === 1;
-  };
+  // const isStepOptional = (step: any) => {
+  //   return step === 1;
+  // };
 
   const isStepSkipped = (step: any) => {
     return skipped.has(step);
@@ -54,9 +52,9 @@ export default function HorizontalLinearStepper() {
   };
 
   const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      throw new Error("You can't skip a step that isn't optional.");
-    }
+    // if (!isStepOptional(activeStep)) {
+    //   throw new Error("You can't skip a step that isn't optional.");
+    // }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
@@ -95,11 +93,11 @@ export default function HorizontalLinearStepper() {
             {steps.map((step: any, index: number) => {
               const stepProps: { completed?: boolean } = {};
               const labelProps: any = {};
-              if (isStepOptional(index)) {
-                labelProps.optional = (
-                  <Typography variant="caption">Optional</Typography>
-                );
-              }
+              // if (isStepOptional(index)) {
+              //   labelProps.optional = (
+              //     <Typography variant="caption">Optional</Typography>
+              //   );
+              // }
               if (isStepSkipped(index)) {
                 stepProps.completed = false;
               }
@@ -134,11 +132,11 @@ export default function HorizontalLinearStepper() {
                   {t("Back")}
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {isStepOptional(activeStep) && (
+                {/* {isStepOptional(activeStep) && (
                   <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                     {t("Skip")}
                   </Button>
-                )}
+                )} */}
                 <Button onClick={handleNext}>
                   {activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                 </Button>

@@ -2,29 +2,24 @@
 
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import TripForm from "@/components/Trip/TripForm";
-import { TripsProvider, useTrips } from "@/components/Trip/Context";
-import QuantityForm from "@/components/Quantity/QuantityForm";
-import { QuantityProvider, useQuantities } from "@/components/Quantity/Context";
 
-type Quantity = {
-  id?: number;
-  prQuantity?: number;
-  bbQuantity?: number;
-  petsQuantity?: number;
-};
+import QuantityForm from "@/components/Quantity/QuantityForm";
+
+import { AllProvider, useAll } from "@/components/Trip/AllContext";
+import { Quantity } from "@/types/quantity";
 
 export default function EditQuantityPage() {
   return (
-    <QuantityProvider>
+    <AllProvider>
       <EditQuantities />
-    </QuantityProvider>
+    </AllProvider>
   );
 }
 
 function EditQuantities() {
   const { id } = useParams(); // dynamic id from route
-  const { quantities, setQuantities } = useQuantities();
+  // const { quantities, setQuantities } = useQuantities();
+  const { quantities, setQuantities } = useAll();
   const router = useRouter();
 
   // Find the quantity to edit by id (id from params is string, convert to number)

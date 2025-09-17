@@ -5,12 +5,14 @@ import { useCurrency } from "../Currency/Context";
 import { Transportation } from "../../types/transportation";
 
 import { TransportationListProps } from "../../types/transportation";
+import { useTranslation } from "react-i18next";
 
 export default function TransportationList({
   transportation,
   onRemove,
 }: TransportationListProps) {
   const router = useRouter();
+  const { t, i18n } = useTranslation();
 
   const currency = useCurrency();
 
@@ -27,19 +29,19 @@ export default function TransportationList({
 
   return (
     <div>
-      <h2>My Transportation</h2>
+      <h2>{t("My Transportation")}</h2>
       <ul>
         {transportation.map((transportation) => (
           <li key={transportation.id}>
-            Flight:{transportation.flight} - Bus:{transportation.bus} - Train:
-            {transportation.train}
-            Price: {transportation.price} {currency}
+            {t("Flight")}:{transportation.flight} - Bus:{transportation.bus} -{" "}
+            {t("Train")}:{transportation.train}
+            {t("Price")}: {transportation.price} {currency}
             <button onClick={() => handleEdit(transportation.id!)}>
               {" "}
-              ✏️ Edit Transportation
+              ✏️ {t("Edit Transportation")}
             </button>
             <button onClick={() => handleDelete(transportation.id!)}>
-              X Delete Transportation
+              X {t("Delete Transportation")}
             </button>
           </li>
         ))}{" "}

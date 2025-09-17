@@ -17,6 +17,19 @@
   "Next": "Siguiente",
   "Finish": "Finalizar",
   "All steps completed - you are finished": "Todos los pasos completados - has terminado",
-  "Reset": "Reiniciar"
+  "Reset": "Reiniciar",
+  "My Trips": "Mis viajes",
+  "Price": "Precio",
+  "Flight": "Vuelo",
+  "Train": "Tren",
+  "Edit Transportation": "Editar transporte",
+  "Delete Transportation": "Eliminar transporte",
+  "My Transportation": "Mi transporte",
+  "Quantities": "Cantidades",
+  "Person": "Persona",
+  "Babies": "Bebés",
+  "Pets": "Mascotas",
+  "Edit Quantity": "Editar cantidad",
+  "Delete Quantity": "Eliminar cantidad"
 
 }

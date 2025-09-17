@@ -3,27 +3,23 @@
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import TripForm from "@/components/Trip/TripForm";
-import { TripsProvider, useTrips } from "@/components/Trip/Context";
-import { useRouter } from "next/navigation";
 
-type Trip = {
-  id: number;
-  destination: string;
-  description: string;
-  date: string;
-};
+import { useRouter } from "next/navigation";
+import { Trip } from "@/types/trips";
+import { AllProvider, useAll } from "@/components/Trip/AllContext";
 
 export default function EditTripPage() {
   return (
-    <TripsProvider>
+    <AllProvider>
       <EditTrips />
-    </TripsProvider>
+    </AllProvider>
   );
 }
 
 function EditTrips() {
   const { id } = useParams(); // dynamic id from route
-  const { trips, setTrips } = useTrips();
+
+  const { trips, setTrips } = useAll();
   const router = useRouter();
 
   // Find the trip to edit by id (id from params is string, convert to number)
