@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +15,9 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
   });
 
   const router = useRouter();
+
+  const [showList, setShowList] = useState(false);
+  const listRef = useRef<HTMLLIElement | null>(null);
 
   var tripsList = [
     { id: 1, destination: "Lisboa", price: 100 },
@@ -63,7 +66,22 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
       const { destination, date, price } = trip;
       setTripData({ ...trip, filteredSuggestions: [] });
     }
-  }, [trip]);
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      // Se o clique foi fora da lista -> esconder
+      if (listRef.current && !listRef.current.contains(event.target as Node)) {
+        setShowList(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const handleClick = async () => {
     if (trip && onSubmit) {
@@ -84,7 +102,10 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
       <div>
         <h2>{trip ? t("Edit your trip") : t("New trip")}</h2>
 
-        <p style={{ position: "relative" }}>
+        <div
+          style={{ marginBottom: "1rem" }}
+          className="destination-autocomplete"
+        >
           <input
             value={tripData.destination}
             onChange={handleDestinationChange} // handleDestinationChange has the purpose of filtering results comparing the userinput wuth suggestedDestinations
@@ -94,7 +115,6 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
           {tripData.filteredSuggestions.length > 0 && (
             <ul
               style={{
-                position: "absolute",
                 top: "100%",
                 left: 0,
                 right: 0,
@@ -107,31 +127,34 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
                 overflowY: "auto",
                 zIndex: 10,
               }}
+              onFocus={() => setShowList(true)}
             >
-              {tripData.filteredSuggestions.map((suggestion, index) => (
-                <li
-                  key={index}
-                  style={{
-                    padding: "8px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion.destination}
-                </li>
-              ))}
+              {showList &&
+                tripData.filteredSuggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      padding: "8px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    ref={listRef}
+                  >
+                    {suggestion.destination}
+                  </li>
+                ))}
             </ul>
           )}
-        </p>
+        </div>
 
-        <p>
+        <div style={{ marginBottom: "1rem" }} className="date-input">
           <input
             type="date"
             value={tripData.date}
             onChange={(e) => setTripData({ ...tripData, date: e.target.value })}
             required
           />
-        </p>
+        </div>
       </div>
 
       <button onClick={home}>{t("Homepage")}</button>

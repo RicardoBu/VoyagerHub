@@ -58,15 +58,15 @@ export const AllProvider = ({ children }: { children: ReactNode }) => {
   // salvar em localStorage
   useEffect(() => {
     localStorage.setItem("trips", JSON.stringify(trips));
-  }, [trips]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("transportation", JSON.stringify(transportation));
-  }, [transportation]);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("quantities", JSON.stringify(quantities));
-  }, [quantities]);
+  }, []);
 
   return (
     <AllContext.Provider

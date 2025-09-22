@@ -18,7 +18,7 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
       const { prQuantity, bbQuantity, petsQuantity } = quantity;
       setQuantities({ ...quantity });
     }
-  }, [quantity]);
+  }, []);
 
   const handleQuantity = async () => {
     if (quantity?.id && onSubmit) {
@@ -38,7 +38,7 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
     <>
       <div>
         <h2>{t("Quantities")}</h2>
-        <p>
+        <div style={{ marginBottom: "1rem" }} className="person-input">
           <input
             type="number"
             placeholder="Number of people"
@@ -51,9 +51,9 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
               });
             }}
           />
-        </p>
+        </div>
 
-        <p>
+        <div style={{ marginBottom: "1rem" }} className="baby-input">
           <input
             type="number"
             placeholder="Number of babies"
@@ -66,8 +66,8 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
               });
             }}
           />
-        </p>
-        <p>
+        </div>
+        <div style={{ marginBottom: "1rem" }} className="pets-input">
           <input
             type="number"
             placeholder="Number of pets"
@@ -82,7 +82,7 @@ const QuantityForm = ({ quantity, onAdd, onSubmit }: QuantityFormProps) => {
               //
             }}
           />
-        </p>
+        </div>
       </div>
 
       <button onClick={home}>Homepage</button>

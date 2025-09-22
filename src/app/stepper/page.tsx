@@ -52,10 +52,6 @@ export default function HorizontalLinearStepper() {
   };
 
   const handleSkip = () => {
-    // if (!isStepOptional(activeStep)) {
-    //   throw new Error("You can't skip a step that isn't optional.");
-    // }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -93,11 +89,7 @@ export default function HorizontalLinearStepper() {
             {steps.map((step: any, index: number) => {
               const stepProps: { completed?: boolean } = {};
               const labelProps: any = {};
-              // if (isStepOptional(index)) {
-              //   labelProps.optional = (
-              //     <Typography variant="caption">Optional</Typography>
-              //   );
-              // }
+
               if (isStepSkipped(index)) {
                 stepProps.completed = false;
               }
@@ -132,11 +124,7 @@ export default function HorizontalLinearStepper() {
                   {t("Back")}
                 </Button>
                 <Box sx={{ flex: "1 1 auto" }} />
-                {/* {isStepOptional(activeStep) && (
-                  <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                    {t("Skip")}
-                  </Button>
-                )} */}
+
                 <Button onClick={handleNext}>
                   {activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                 </Button>

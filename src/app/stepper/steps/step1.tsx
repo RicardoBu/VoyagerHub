@@ -5,13 +5,6 @@ import React, { useEffect, useState } from "react";
 import { useAll } from "@/components/Trip/AllContext";
 import { TripData } from "@/types/trips";
 
-// type Trip = {
-//   id: number;
-//   destination: string;
-
-//   date: string;
-// };
-
 export default function Step1() {
   const { trips, setTrips } = useAll();
   console.log(trips);
