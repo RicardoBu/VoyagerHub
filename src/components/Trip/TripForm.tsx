@@ -16,8 +16,10 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
 
   const router = useRouter();
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [showList, setShowList] = useState(false);
-  const listRef = useRef<HTMLLIElement | null>(null);
+  // const [isActive, setIsActive] = useState(false);
 
   var tripsList = [
     { id: 1, destination: "Lisboa", price: 100 },
@@ -45,6 +47,7 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
       destination: userInput,
       filteredSuggestions: filtered,
     }));
+    setShowList(true);
   };
 
   const handleSuggestionClick = (suggestion: {
@@ -57,6 +60,7 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
       ...suggestion,
       filteredSuggestions: [],
     }));
+    setShowList(false);
   };
 
   // The useEffect here is used for existing trips
@@ -69,19 +73,18 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
   }, []);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      // Se o clique foi fora da lista -> esconder
-      if (listRef.current && !listRef.current.contains(event.target as Node)) {
+    const pageClickEvent = (e: any) => {
+      if (inputRef.current !== null && !inputRef.current.contains(e.target)) {
         setShowList(false);
       }
-    }
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
     };
-  }, []);
+    if (showList) {
+      window.addEventListener("click", pageClickEvent);
+    }
+    return () => {
+      window.removeEventListener("click", pageClickEvent);
+    };
+  }, [showList]);
 
   const handleClick = async () => {
     if (trip && onSubmit) {
@@ -111,8 +114,9 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
             onChange={handleDestinationChange} // handleDestinationChange has the purpose of filtering results comparing the userinput wuth suggestedDestinations
             placeholder={t("Destination")}
             required
+            ref={inputRef}
           />
-          {tripData.filteredSuggestions.length > 0 && (
+          {showList && tripData.filteredSuggestions.length > 0 && (
             <ul
               style={{
                 top: "100%",
@@ -127,22 +131,19 @@ export default function TripForm({ trip, onAdd, onSubmit }: TripFormProps) {
                 overflowY: "auto",
                 zIndex: 10,
               }}
-              onFocus={() => setShowList(true)}
             >
-              {showList &&
-                tripData.filteredSuggestions.map((suggestion, index) => (
-                  <li
-                    key={index}
-                    style={{
-                      padding: "8px",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => handleSuggestionClick(suggestion)}
-                    ref={listRef}
-                  >
-                    {suggestion.destination}
-                  </li>
-                ))}
+              {tripData.filteredSuggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  style={{
+                    padding: "8px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion.destination}
+                </li>
+              ))}
             </ul>
           )}
         </div>
